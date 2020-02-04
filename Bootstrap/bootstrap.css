@@ -1,0 +1,8 @@
+.container-fluid{
+    background-color:rgb(228, 217, 217);   
+    height:600px;
+    padding-top:20px; 
+}
+.btn-block{
+    margin-bottom:2%;
+}
