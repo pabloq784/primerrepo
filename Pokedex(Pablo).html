@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex(Pablo)</title>
+    <link rel="stylesheet" href="pokedexPablo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            
+        var url_img = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/";
+        for(var i = 1; i <= 50; i++){
+        $('#containerLeft').append('<img id="'+i+'" src="'+url_img+''+i+'.png">');
+    };
+
+    var url_info = "https://pokeapi.co/api/v2/pokemon/";
+    
+
+    $('#containerLeft').on('click', 'img', function() {
+        var id = $(this).attr('id');
+        // console.log(url_info+id);
+        $.get(url_info+id, function(pokemon) {
+            console.log(pokemon.types);
+            var HTMLstring = `
+                <div id='groupPhoto'>
+                    <img src='${pokemon.sprites.front_default}'>
+                    <img src='${pokemon.sprites.front_shiny}'>
+                </div>
+                <h1>Name: ${pokemon.name}</h1>
+                <p>Height: ${pokemon.height}</p>
+                <p>Weight: ${pokemon.weight}</p>
+                <p>Types:<ul>
+            `
+            var HTMLtypes = '';
+            for (var z = 0; z < pokemon.types.length; z++) {
+                HTMLtypes += `<li>${pokemon.types[z].type.name}</li>`
+            }
+            $('#containerRight').html(HTMLstring+HTMLtypes+'</ul>');
+        },'json');
+    } )
+
+})
+    </script>
+
+</head>
+<body>
+<!--     <div id="container"> -->
+    <h1 class="Encabezado">Mi Pokedex</h1>
+    <p class="Encabezado"> Haz click para ver las Caracteristicas de tu Pokemon Favorito !! </p> 
+    <div id="wrapper">
+        <div id="containerLeft">
+            <!-- pokemon list -->
+        </div>
+        <div id="containerRight">
+            <!-- pokemon details -->
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
